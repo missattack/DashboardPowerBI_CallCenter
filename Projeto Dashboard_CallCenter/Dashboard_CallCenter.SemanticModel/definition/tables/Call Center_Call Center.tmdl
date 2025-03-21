@@ -1,0 +1,140 @@
+table 'Call Center_Call Center'
+	lineageTag: 3deede6e-e2df-4ead-bde6-2897efafb4fa
+
+	measure 'Total Calls' = COUNT('Call Center_Call Center'[Id])
+		formatString: 0.00
+		lineageTag: a214a9c5-02f2-4098-8298-d8f4c88349f7
+
+	measure 'Total Duracao Calls (min)' = SUM('Call Center_Call Center'[Call Duration In Minutes])
+		formatString: 0.00
+		lineageTag: c214df4b-5a28-4f58-9c1b-5716d6e67717
+
+	measure 'Total Duracao Calls (horas)' = [Total Duracao Calls (min)]/60
+		lineageTag: 6fb47309-779a-4f4b-92d7-cce2e19d8f34
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Media Duracao Calls (min)' = ```
+			AVERAGE('Call Center_Call Center'[Call Duration In Minutes]) 
+			```
+		formatString: 0.00
+		lineageTag: 43e23d57-e33c-426c-ac5f-a09cccf1cb19
+
+	measure 'Tempo de Resposta %' = CALCULATE([Total Calls], 'Call Center_Call Center'[Response Time] = "Within SLA" || 'Call Center_Call Center'[Response Time] = "Above SLA") / [Total Calls]
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 21f05ee1-0962-4389-9500-01b0ba945054
+
+	column Id
+		dataType: string
+		lineageTag: 183dac05-8aa8-4224-b989-1ac830fde0b0
+		summarizeBy: none
+		sourceColumn: Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Call Timestamp'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 69146441-481c-4810-a505-3b5ed854e469
+		summarizeBy: none
+		sourceColumn: Call Timestamp
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Call-Center
+		dataType: string
+		lineageTag: ddabbfc8-3cb7-4e38-9323-cb7b5b6435cf
+		summarizeBy: none
+		sourceColumn: Call-Center
+
+		annotation SummarizationSetBy = Automatic
+
+	column Channel
+		dataType: string
+		lineageTag: 832ef45f-b122-4fc2-978c-62dc71d87f13
+		summarizeBy: none
+		sourceColumn: Channel
+
+		annotation SummarizationSetBy = Automatic
+
+	column City
+		dataType: string
+		lineageTag: 76caf337-f40c-497b-bd86-f48b042a809f
+		summarizeBy: none
+		sourceColumn: City
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Customer Name'
+		dataType: string
+		lineageTag: 9821cf03-bd0c-4a14-ae98-3ffa00fed289
+		summarizeBy: none
+		sourceColumn: Customer Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Reason
+		dataType: string
+		lineageTag: dbfde3d6-a53f-463d-ac5d-32762a9bd3d0
+		summarizeBy: none
+		sourceColumn: Reason
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Response Time'
+		dataType: string
+		lineageTag: 7e98e20f-91b9-4e26-b63d-28a4afacec44
+		summarizeBy: none
+		sourceColumn: Response Time
+
+		annotation SummarizationSetBy = Automatic
+
+	column Sentiment
+		dataType: string
+		lineageTag: da5908a5-1238-4f5a-9e22-95f8d367160a
+		summarizeBy: none
+		sourceColumn: Sentiment
+
+		annotation SummarizationSetBy = Automatic
+
+	column State
+		dataType: string
+		lineageTag: e3c64528-c227-4cfd-904f-e9683cde6051
+		summarizeBy: none
+		sourceColumn: State
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Call Duration In Minutes'
+		dataType: int64
+		formatString: 0
+		lineageTag: 9d5daaf1-22b7-45bd-8fc6-ae774681ec48
+		summarizeBy: sum
+		sourceColumn: Call Duration In Minutes
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Csat Score'
+		dataType: int64
+		formatString: 0
+		lineageTag: 9e7ea95c-704f-4cd5-980e-2b5779d02ba9
+		summarizeBy: sum
+		sourceColumn: Csat Score
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Call Center_Call Center' = m
+		mode: import
+		source =
+				let
+				    Fonte = Csv.Document(File.Contents("C:\POWER BI\Call Center_Call Center.csv"),[Delimiter=",", Columns=12, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"Id", type text}, {"Call Timestamp", type date}, {"Call-Centres City", type text}, {"Channel", type text}, {"City", type text}, {"Customer Name", type text}, {"Reason", type text}, {"Response Time", type text}, {"Sentiment", type text}, {"State", type text}, {"Call Duration In Minutes", Int64.Type}, {"Csat Score", Int64.Type}}),
+				    #"Colunas Renomeadas" = Table.RenameColumns(#"Tipo Alterado",{{"Call-Centres City", "Call-Center"}})
+				in
+				    #"Colunas Renomeadas"
+
+	annotation PBI_ResultType = Table
+

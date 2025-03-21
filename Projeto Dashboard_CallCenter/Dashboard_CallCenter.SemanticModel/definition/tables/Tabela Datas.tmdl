@@ -1,0 +1,41 @@
+table 'Tabela Datas'
+	lineageTag: 5a21f474-ca7e-4a0b-a84e-c2e567549e79
+
+	column Date
+		formatString: General Date
+		lineageTag: b35e3370-b300-4304-9bfe-b84a3e26b7da
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		variation Variation
+			isDefault
+			relationship: 3f4dea18-7457-4329-9c71-ad115839ade6
+			defaultHierarchy: LocalDateTable_bd761d6d-db87-478d-8625-6fb8e01e263c.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Dia = ```
+			FORMAT('Tabela Datas'[Date], "ddd") 
+			```
+		lineageTag: aab04624-27b0-4c79-9dc9-aa74ce4b9bae
+		summarizeBy: none
+		sortByColumn: 'Dia Nro'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Dia Nro' = WEEKDAY('Tabela Datas'[Date],1)
+		formatString: 0
+		lineageTag: ba061e27-a38d-4760-80cd-eae6fe04ab6d
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Tabela Datas' = calculated
+		mode: import
+		source = ```
+				CALENDAR(MIN('Call Center_Call Center'[Call Timestamp]), MAX('Call Center_Call Center'[Call Timestamp])) 
+				```
+
+	annotation PBI_Id = fc201376627b4f90a9be59bc11963ae1
+

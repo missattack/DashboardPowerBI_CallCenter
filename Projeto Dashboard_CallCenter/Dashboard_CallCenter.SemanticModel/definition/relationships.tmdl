@@ -1,0 +1,9 @@
+relationship 3f4dea18-7457-4329-9c71-ad115839ade6
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Tabela Datas'.Date
+	toColumn: LocalDateTable_bd761d6d-db87-478d-8625-6fb8e01e263c.Date
+
+relationship b7edce04-c026-c242-5d48-2e8026c40a61
+	fromColumn: 'Call Center_Call Center'.'Call Timestamp'
+	toColumn: 'Tabela Datas'.Date
+

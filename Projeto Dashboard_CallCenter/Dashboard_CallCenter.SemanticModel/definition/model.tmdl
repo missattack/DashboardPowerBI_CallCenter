@@ -1,0 +1,23 @@
+model Model
+	culture: pt-BR
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: pt-BR
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["Call Center_Call Center"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBIDesktopVersion = 2.140.1205.0 (25.02)+2ab3defe107764e1cf486b42122d9362df7f34ea
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table 'Call Center_Call Center'
+ref table DateTableTemplate_dcabd5d2-5f44-4b62-8278-66a6dd60b649
+ref table 'Tabela Datas'
+ref table LocalDateTable_bd761d6d-db87-478d-8625-6fb8e01e263c
+
+ref cultureInfo pt-BR
+
