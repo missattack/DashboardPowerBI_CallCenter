@@ -1,5 +1,28 @@
-Dashboard para análise de chamadas de call center por: localidade; canal de atendimento; dia; razão; sentimento; dentre outros:
+📞 Dashboard de Controle de Chamadas - Power BI
+Este repositório contém um dashboard interativo no Power BI para análise e controle das chamadas em um call center. O objetivo é fornecer insights detalhados sobre o volume de chamadas, tempo médio de atendimento e padrões de comunicação.
 
+📊 Principais Análises
+✅ Total e média de chamadas - Monitoramento do volume de ligações.
+✅ Duração das chamadas - Análise detalhada do tempo médio de atendimento.
+✅ Localidade - Identificação de regiões com maior demanda.
+✅ Canal de atendimento - Comparação entre telefone, chat, e-mail, etc.
+✅ Dia e horário - Picos de atendimento ao longo da semana.
+✅ Razão das chamadas - Principais motivos de contato.
+✅ Sentimento - Classificação e análise do tom das interações.
+
+🛠 Tecnologias Utilizadas
+Power BI para visualização de dados
+
+Excel (se aplicável) como fonte de dados
+
+🚀 Como Usar
+1. Baixe o arquivo .pbix e abra no Power BI Desktop
+
+2. Conecte suas fontes de dados, se necessário
+
+3. Explore os gráficos e personalize conforme suas necessidades.
+
+🔗 Demo ou Screenshots:
 ![image](https://github.com/user-attachments/assets/6403d22d-e0b0-4e41-9e9a-e1f439c15248)
 
 ![image](https://github.com/user-attachments/assets/61a14fd6-9d06-4d59-83d6-46308739515e)
